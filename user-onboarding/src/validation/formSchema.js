@@ -11,7 +11,7 @@ const formSchema = yup.object().shape({
     .email("must be a valid email address")
     .required("email is required"),
   password: yup.string().required("A valid password is required"),
-  tos: yup.boolean().required("Agreement with the TOS is required"),
+  tos: yup.boolean().oneOf([true], "You must agree with the TOS to continue")
 });
 
 export default formSchema;

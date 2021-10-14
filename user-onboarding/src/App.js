@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 import Form from "./Form";
+import User from "./User";
 import * as yup from "yup";
 import schema from "./validation/formSchema";
+import { v4 as uuid } from 'uuid'
 
 // INITIAL STATES
 const initialFormValues = {
@@ -77,11 +79,13 @@ export default function App() {
   // >> submit form
   const formSubmit = () => {
     const newUser = {
+      id: uuid(),
       name: formValues.name.trim(),
       email: formValues.email.trim(),
       password: formValues.password,
       tos: formValues.tos,
     };
+    postNewUser(newUser);
   };
 
   // SIDE EFFECTS
@@ -104,6 +108,11 @@ export default function App() {
         disabled={disabled}
         errors={formErrors}
       />
+
+      {users.map((u) => {
+        return <User key={u.id} details={u} />;
+      })}
+
     </div>
   );
 }

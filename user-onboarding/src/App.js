@@ -36,6 +36,7 @@ export default function App() {
     axios
       .get("https://reqres.in/api/users")
       .then((res) => {
+        console.log(res);
         setUsers(res.data.data);
       })
       .catch((err) => {
@@ -44,18 +45,16 @@ export default function App() {
   }; //use in side effect
 
   const postNewUser = (newUser) => {
-    axios
-      .post("https://reqres.in/api/users", newUser)
-      .then((res) => {
-        setUsers([res.data.data, ...users]);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setFormValues(initialFormValues);
-      });
-  };
+    axios.post('https://reqres.in/api/users', newUser)
+    .then(res => {
+      console.log(res);
+      setUsers([res.data, ...users]);
+    }).catch(err => {
+      console.error(err);
+    }).finally(() => {
+      setFormValues(initialFormValues);
+    })
+  }
 
   // EVENT HANDLERS
   // >> declare validation using yup
